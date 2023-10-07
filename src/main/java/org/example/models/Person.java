@@ -62,4 +62,8 @@ public class Person {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getInsertStringTOSql() {
+        return String.format("'%d', '%s', '%d', '%s'", this.id, this.name, this.age, this.email);
+    }
 }
