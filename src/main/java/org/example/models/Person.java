@@ -5,6 +5,9 @@ public class Person {
     private String name;
     private String birthDate;
 
+    public Person() {
+    }
+
     public Person(int id, String name, String birthDate) {
         this.id = id;
         this.name = name;
