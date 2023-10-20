@@ -1,25 +1,39 @@
 package org.example.controllers.users;
 
-import org.example.dao.PersonDao;
+import org.example.dao.UserDao;
+import org.example.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UsersController {
-    private final PersonDao personDao;
+    private final UserDao userDao;
 
     @Autowired
-    public UsersController(PersonDao personDao) {
-        this.personDao = personDao;
+    public UsersController(UserDao userDao) {
+        this.userDao = userDao;
     }
 
     @GetMapping()
     public String getAllUsers(Model model){
-        model.addAttribute("users", personDao.getAllUsers());
+        model.addAttribute("users", userDao.getAllUsers());
         return "users/users";
+    }
+
+    @GetMapping("/new")
+    public String newUserForm(Model model){
+        model.addAttribute("user", new User());
+        return "users/new";
+    }
+
+    @PostMapping("")
+    public String createUser(@ModelAttribute("user") User user){
+        return "redirect:/users/users";
     }
 }

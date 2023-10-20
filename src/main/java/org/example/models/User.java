@@ -1,14 +1,14 @@
 package org.example.models;
 
-public class Person {
+public class User {
     private int id;
     private String name;
     private String birthDate;
 
-    public Person() {
+    public User() {
     }
 
-    public Person(int id, String name, String birthDate) {
+    public User(int id, String name, String birthDate) {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;
