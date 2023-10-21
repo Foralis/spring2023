@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="ISO-8859-1">
+  <title>User</title>
+</head>
+
+<body>
+<p th:text="'id = ' + ${user.getId()}"/>
+<p th:text="' name = ' + ${user.getName()}"/>
+<p th:text="' birthdate = ' + ${user.getBirthDate()}"/>
+<br>
+<a href="/users/edit">edit</a>
+</body>
+
+</html>

@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class UserDao {
@@ -18,6 +19,19 @@ public class UserDao {
     }
 
     public List<User> getAllUsers(){
-        return jdbcTemplate.query("select * from person", new BeanPropertyRowMapper<>(User.class));
+        return jdbcTemplate.query("select * from user", new BeanPropertyRowMapper<>(User.class));
+    }
+
+    public void save(User user) {
+        jdbcTemplate.update("INSERT INTO user(name, birthDate) VALUES(?,?)", user.getName(),
+                user.getBirthDate());
+    }
+
+    public User showUser(int id) {
+        return jdbcTemplate.query("select * from user where id = ?", new Object[]{id},
+                new BeanPropertyRowMapper<>(User.class))
+                .stream()
+                .findAny()
+                .orElseThrow(() -> new RuntimeException("There is no user with id = " + id));
     }
 }
