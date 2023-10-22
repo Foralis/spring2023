@@ -11,7 +11,7 @@
 <p th:text="' name = ' + ${user.getName()}"/>
 <p th:text="' birthdate = ' + ${user.getBirthDate()}"/>
 <br>
-<a href="/users/edit">edit</a>
+<a th:href="@{/users/{id}/edit(id=${user.getId()})}">edit</a>
 </body>
 
 </html>

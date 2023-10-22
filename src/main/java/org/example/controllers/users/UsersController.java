@@ -31,12 +31,25 @@ public class UsersController {
 
     @PostMapping("")
     public String createUser(@ModelAttribute("user") User user){
-        return "redirect:/users/users";
+        userDao.save(user);
+        return "redirect:/users";
     }
 
     @GetMapping("/{id}")
     public String showUser(@PathVariable("id") int id, Model model){
         model.addAttribute("user", userDao.showUser(id));
         return "users/showUser";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String editUser(@PathVariable("id") int id, Model model) {
+        model.addAttribute("user", userDao.showUser(id));
+        return "users/editUser";
+    }
+
+    @PatchMapping("/{id}")
+    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") int id) {
+        userDao.update(id, user);
+        return "redirect:/users";
     }
 }

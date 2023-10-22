@@ -34,4 +34,9 @@ public class UserDao {
                 .findAny()
                 .orElseThrow(() -> new RuntimeException("There is no user with id = " + id));
     }
+
+    public void update(int id, User user) {
+        jdbcTemplate.update("UPDATE user set name = ?, birthDate = ? where id = ?", user.getName(),
+                user.getBirthDate(), id);
+    }
 }
