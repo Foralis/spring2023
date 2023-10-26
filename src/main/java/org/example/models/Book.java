@@ -3,14 +3,13 @@ package org.example.models;
 public class Book {
     private String name;
     private String author;
-
-    public Book(String name, String author) {
-        this.name = name;
-        this.author = author;
-    }
+    private String established;
 
     public String getName() {
         return name;
+    }
+
+    public Book() {
     }
 
     public void setName(String name) {
@@ -23,5 +22,19 @@ public class Book {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getEstablished() {
+        return established;
+    }
+
+    public void setEstablished(String established) {
+        this.established = established;
+    }
+
+    public Book(String name, String author, String established) {
+        this.name = name;
+        this.author = author;
+        this.established = established;
     }
 }
