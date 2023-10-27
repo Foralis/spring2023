@@ -19,7 +19,7 @@ public class BookDao {
     }
 
     public List<User> getAllBooks(){
-        return jdbcTemplate.query("select * from user", new BeanPropertyRowMapper<>(User.class));
+        return jdbcTemplate.query("select * from book", new BeanPropertyRowMapper<>(User.class));
     }
 
     public void save(Book book) {
