@@ -23,24 +23,24 @@ public class BookDao {
     }
 
     public void save(Book book) {
-        jdbcTemplate.update("INSERT INTO user(name, birthDate) VALUES(?,?)", book.getName(),
-                book.getEstablished());
+        jdbcTemplate.update("INSERT INTO book(author, name, year) VALUES(?,?,?)", book.getAuthor(),
+                book.getName(), book.getEstablished());
     }
 
     public User showBook(int id) {
-        return jdbcTemplate.query("select * from user where id = ?", new Object[]{id},
+        return jdbcTemplate.query("select * from book where id = ?", new Object[]{id},
                 new BeanPropertyRowMapper<>(User.class))
                 .stream()
                 .findAny()
-                .orElseThrow(() -> new RuntimeException("There is no user with id = " + id));
+                .orElseThrow(() -> new RuntimeException("There is no book with id = " + id));
     }
 
     public void update(int id, Book book) {
-        jdbcTemplate.update("UPDATE user set name = ?, birthDate = ? where id = ?", book.getName(),
-                book.getEstablished(), id);
+        jdbcTemplate.update("UPDATE book set author = ?, name = ?, year = ? where id = ?", book.getAuthor(),
+                book.getName(), book.getEstablished(), id);
     }
 
     public void deleteBook(int id) {
-        jdbcTemplate.update("delete from user where id = ?", id);
+        jdbcTemplate.update("delete from book where id = ?", id);
     }
 }

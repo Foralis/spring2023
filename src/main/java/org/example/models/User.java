@@ -12,7 +12,7 @@ public class User {
     @Size(min = 3, max = 255, message = "name should be between 3 and 255")
     private String name;
 
-    @Pattern(regexp = "\\d{4}\\.\\d{2}\\.\\d{2}", message = "Birthdate should be in format yyyy.mm.dd")
+    @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}", message = "Birthdate should be in format yyyy-mm-dd")
     private String birthDate;
 
     public User() {
