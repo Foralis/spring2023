@@ -18,8 +18,8 @@
     <div style="color:red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Error</div>
     <br/>
     <label for="established">Enter established year:</label>
-    <input type="text" th:field="*{established}" id="established"/>
-    <div style="color:red" th:if="${#fields.hasErrors('established')}" th:errors="*{established}">Error</div>
+    <input type="text" th:field="*{year}" id="established"/>
+    <div style="color:red" th:if="${#fields.hasErrors('established')}" th:errors="*{year}">Error</div>
     <br/>
     <input type="submit" value="Create!"/>
 </form>

@@ -1,7 +1,6 @@
 package org.example.dao;
 
 import org.example.models.Book;
-import org.example.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,18 +17,18 @@ public class BookDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<User> getAllBooks(){
-        return jdbcTemplate.query("select * from book", new BeanPropertyRowMapper<>(User.class));
+    public List<Book> getAllBooks(){
+        return jdbcTemplate.query("select * from book", new BeanPropertyRowMapper<>(Book.class));
     }
 
     public void save(Book book) {
         jdbcTemplate.update("INSERT INTO book(author, name, year) VALUES(?,?,?)", book.getAuthor(),
-                book.getName(), book.getEstablished());
+                book.getName(), book.getYear());
     }
 
-    public User showBook(int id) {
+    public Book showBook(int id) {
         return jdbcTemplate.query("select * from book where id = ?", new Object[]{id},
-                new BeanPropertyRowMapper<>(User.class))
+                new BeanPropertyRowMapper<>(Book.class))
                 .stream()
                 .findAny()
                 .orElseThrow(() -> new RuntimeException("There is no book with id = " + id));
@@ -37,7 +36,7 @@ public class BookDao {
 
     public void update(int id, Book book) {
         jdbcTemplate.update("UPDATE book set author = ?, name = ?, year = ? where id = ?", book.getAuthor(),
-                book.getName(), book.getEstablished(), id);
+                book.getName(), book.getYear(), id);
     }
 
     public void deleteBook(int id) {
