@@ -17,13 +17,13 @@ public class Book {
     private String author;
 
     @Pattern(regexp = "\\d{4}", message = "date should be in format yyyy")
-    private String year;
+    private String established;
 
-    public Book(int id, String name, String author, String year) {
+    public Book(int id, String name, String author, String established) {
         this.id = id;
         this.name = name;
         this.author = author;
-        this.year = year;
+        this.established = established;
     }
 
     public Book() {
@@ -53,11 +53,11 @@ public class Book {
         this.author = author;
     }
 
-    public String getYear() {
-        return year;
+    public String getEstablished() {
+        return established;
     }
 
-    public void setYear(String year) {
-        this.year = year;
+    public void setEstablished(String established) {
+        this.established = established;
     }
 }

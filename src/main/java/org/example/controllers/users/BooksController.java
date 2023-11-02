@@ -67,7 +67,7 @@ public class BooksController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable("id") int id){
+    public String deleteBook(@PathVariable("id") int id){
         bookDao.deleteBook(id);
         return "redirect:/books";
     }

@@ -9,12 +9,12 @@
 <body>
 <p th:text="'id = ' + ${book.getId()}"/>
 <p th:text="' name = ' + ${book.getName()}"/>
-<p th:text="' established date = ' + ${book.getAuthor()}"/>
-<p th:text="' year = ' + ${book.getYear()}"/>
+<p th:text="' author = ' + ${book.getAuthor()}"/>
+<p th:text="' published = ' + ${book.getEstablished()}"/>
 <br>
 <a th:href="@{/books/{id}/edit(id=${book.getId()})}">edit</a>
 <br>
-<form th:method="DELETE" th:action="@{/book/{id}(id=${book.getId()})}">
+<form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
   <input type="submit" value="Delete">
 </form>
 </body>
