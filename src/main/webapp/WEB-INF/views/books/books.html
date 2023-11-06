@@ -9,9 +9,10 @@
 <body>
 
 <div th:each="book : ${books}">
-  <a th:href="@{/books/{id}(id=${book.getId()})}" th:text="${book.getName()}">book</a>
+  <a th:href="@{/books/{id}(id=${book.getId()})}" th:text="${book.toString()}">book</a>
 </div>
 <br>
+<hr>
 <a href="/books/new">add book</a>
 </body>
 

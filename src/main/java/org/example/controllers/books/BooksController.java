@@ -1,6 +1,7 @@
-package org.example.controllers.users;
+package org.example.controllers.books;
 
 import org.example.dao.BookDao;
+import org.example.dao.OrderDao;
 import org.example.dao.UserDao;
 import org.example.models.Book;
 import org.example.models.User;
@@ -16,10 +17,16 @@ import javax.validation.Valid;
 @RequestMapping("/books")
 public class BooksController {
     private final BookDao bookDao;
+    private final UserDao userDao;
+    private final OrderDao orderDao;
 
     @Autowired
-    public BooksController(BookDao bookDao) {
+    public BooksController(BookDao bookDao,
+                           UserDao userDao,
+                           OrderDao orderDao) {
         this.bookDao = bookDao;
+        this.userDao = userDao;
+        this.orderDao = orderDao;
     }
 
     @GetMapping()
@@ -44,8 +51,9 @@ public class BooksController {
     }
 
     @GetMapping("/{id}")
-    public String showBook(@PathVariable("id") int id, Model model){
+    public String showBook(@PathVariable("id") int id, Model model, @ModelAttribute("user") User user){
         model.addAttribute("book", bookDao.showBook(id));
+        model.addAttribute("users", userDao.getAllUsers());
         return "books/showBook";
     }
 
@@ -69,6 +77,11 @@ public class BooksController {
     @DeleteMapping("/{id}")
     public String deleteBook(@PathVariable("id") int id){
         bookDao.deleteBook(id);
+        return "redirect:/books";
+    }
+
+    @PostMapping("/order/{id}") String orderBook(@PathVariable("id") int id, @ModelAttribute("user") User user){
+        orderDao.order(user.getId(), id);
         return "redirect:/books";
     }
 }

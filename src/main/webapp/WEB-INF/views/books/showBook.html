@@ -7,13 +7,19 @@
 </head>
 
 <body>
-<p th:text="'id = ' + ${book.getId()}"/>
-<p th:text="' name = ' + ${book.getName()}"/>
-<p th:text="' author = ' + ${book.getAuthor()}"/>
-<p th:text="' published = ' + ${book.getEstablished()}"/>
+<p th:text="${book.toString()}"/>
+<br>
+<form th:method="POST" th:action="@{/books/order/{id}(id=${book.getId()})}">
+  <label for="user">Order book</label>
+  <select th:object="${user}" th:field="*{id}" id="user">
+    <option th:each="user : ${users}" th:value="${user.getId()}" th:text="${user.getName()}"></option>
+  </select>
+
+  <input type="submit" value="Order book">
+</form>
+<hr>
 <br>
 <a th:href="@{/books/{id}/edit(id=${book.getId()})}">edit</a>
-<br>
 <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
   <input type="submit" value="Delete">
 </form>

@@ -60,4 +60,9 @@ public class Book {
     public void setEstablished(String established) {
         this.established = established;
     }
+
+    @Override
+    public String toString() {
+        return getName() + ", " + getAuthor() + ", " + getEstablished();
+    }
 }
