@@ -35,6 +35,15 @@ public class UserDao {
                 .orElseThrow(() -> new RuntimeException("There is no user with id = " + id));
     }
 
+    public User showUserWhoOrderedBook(int bookId) {
+        return jdbcTemplate.query("select * from user where id = (select userId from orders where bookId = ?)",
+                        new Object[]{bookId},
+                        new BeanPropertyRowMapper<>(User.class))
+                .stream()
+                .findAny()
+                .orElseThrow(() -> new RuntimeException("There is no user with who ordered book with id " + bookId));
+    }
+
     public void update(int id, User user) {
         jdbcTemplate.update("UPDATE user set name = ?, birthDate = ? where id = ?", user.getName(),
                 user.getBirthDate(), id);

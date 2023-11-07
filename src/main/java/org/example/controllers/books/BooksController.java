@@ -51,9 +51,16 @@ public class BooksController {
     }
 
     @GetMapping("/{id}")
-    public String showBook(@PathVariable("id") int id, Model model, @ModelAttribute("user") User user){
+    public String showBook(@PathVariable("id") int id, Model model){
         model.addAttribute("book", bookDao.showBook(id));
-        model.addAttribute("users", userDao.getAllUsers());
+        if(orderDao.isBooked(id)) {
+            model.addAttribute("isOrdered", true);
+            model.addAttribute("user", userDao.showUserWhoOrderedBook(id));
+        } else {
+            model.addAttribute("users", userDao.getAllUsers());
+            model.addAttribute("isOrdered", false);
+            model.addAttribute("user", new User());
+        }
         return "books/showBook";
     }
 
