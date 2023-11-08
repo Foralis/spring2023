@@ -25,7 +25,7 @@
         <p th:text="'The book has booked by ' + ${user.getName()}">text</p>
         <br>
         <form th:method="DELETE" th:action="@{/books/order/{id}(id=${book.getId()})}">
-            <input type="submit" value="Delete">
+            <input type="submit" value="Free book">
         </form>
     </div>
 </td>
