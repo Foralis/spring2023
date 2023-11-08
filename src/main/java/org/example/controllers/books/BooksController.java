@@ -87,6 +87,12 @@ public class BooksController {
         return "redirect:/books";
     }
 
+    @DeleteMapping("/order/{id}")
+    public String deleteOrder(@PathVariable("id") int id){
+        orderDao.deleteOrder(id);
+        return "redirect:/books";
+    }
+
     @PostMapping("/order/{id}") String orderBook(@PathVariable("id") int id, @ModelAttribute("user") User user){
         orderDao.order(user.getId(), id);
         return "redirect:/books";

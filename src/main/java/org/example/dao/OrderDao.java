@@ -37,11 +37,13 @@ public class OrderDao {
                 book.getName(), book.getEstablished(), id);
     }
 
-    public List<Book> getAllBooks(){
-        return jdbcTemplate.query("select * from book", new BeanPropertyRowMapper<>(Book.class));
+    public List<Book> getAllBooksOrderedByUser(int id){
+        return jdbcTemplate.query("select * from library.book b where (select count(1) from library.orders where userId = ? and bookId = b.id) > 0",
+                new Object[]{id},
+                new BeanPropertyRowMapper<>(Book.class));
     }
 
-    public void deleteBook(int id) {
-        jdbcTemplate.update("delete from book where id = ?", id);
+    public void deleteOrder(int id) {
+        jdbcTemplate.update("delete from orders where bookId = ?", id);
     }
 }

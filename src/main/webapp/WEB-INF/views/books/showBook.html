@@ -23,6 +23,10 @@
     </div>
     <div th:if="${isOrdered == true}">
         <p th:text="'The book has booked by ' + ${user.getName()}">text</p>
+        <br>
+        <form th:method="DELETE" th:action="@{/books/order/{id}(id=${book.getId()})}">
+            <input type="submit" value="Delete">
+        </form>
     </div>
 </td>
 
