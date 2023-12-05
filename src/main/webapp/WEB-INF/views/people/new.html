@@ -15,6 +15,10 @@
     <input type="text" th:field="*{age}" id="age"/>
     <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</div>
     <br/>
+    <label for="age">Enter dateOfBirth (dd/MM/yyyy): </label>
+    <input type="text" th:field="*{dateOfBirth}" id="date_of_birth"/>
+    <div style="color:red" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">dateOfBirth Error</div>
+    <br/>
     <input type="submit" value="Create!"/>
 </form>
 
