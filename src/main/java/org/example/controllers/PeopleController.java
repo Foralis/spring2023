@@ -1,7 +1,7 @@
 package org.example.controllers;
 
-import org.example.dao.PersonDAO;
 import org.example.models.Person;
+import org.example.services.ItemsService;
 import org.example.services.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,15 +18,22 @@ public class PeopleController {
 //    private PersonDAO personDAO;
     private PeopleService peopleService;
 
-    @Autowired
-    public PeopleController(PeopleService peopleService) {
+    private ItemsService itemsService;
+
+    public PeopleController(PeopleService peopleService, ItemsService itemsService) {
         this.peopleService = peopleService;
+        this.itemsService = itemsService;
     }
 
     @GetMapping()
     public String index(Model model){
         // получим всех людей из ДАО и передадим на отображение
         model.addAttribute("people", peopleService.findAll());
+        itemsService.findByItemName("lamp");
+        itemsService.findByOwner(peopleService.findAll().get(0));
+
+        peopleService.test();
+
         return "people/index";
     }
 
