@@ -41,8 +41,8 @@ public class Person {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
-    @Enumerated(EnumType.STRING)
-    private Mood mood;
+//    @Enumerated(EnumType.ORDINAL)
+//    private Mood mood;
 
    public Person() {
     }
@@ -88,12 +88,20 @@ public class Person {
         return createdAt;
     }
 
-    public Mood getMood() {
-        return mood;
+//    public Mood getMood() {
+//        return mood;
+//    }
+//
+//    public void setMood(Mood mood) {
+//        this.mood = mood;
+//    }
+
+    public List<Item> getItems() {
+        return items;
     }
 
-    public void setMood(Mood mood) {
-        this.mood = mood;
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
     public void setCreatedAt(Date createdAt) {

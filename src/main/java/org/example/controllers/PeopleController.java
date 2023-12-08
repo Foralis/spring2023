@@ -1,9 +1,9 @@
 package org.example.controllers;
 
+import org.example.dao.PersonDAO;
 import org.example.models.Person;
 import org.example.services.ItemsService;
 import org.example.services.PeopleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,12 +15,14 @@ import javax.validation.Valid;
 @RequestMapping("/people")
 public class PeopleController {
 
-//    private PersonDAO personDAO;
+    private PersonDAO personDAO;
     private PeopleService peopleService;
 
     private ItemsService itemsService;
 
-    public PeopleController(PeopleService peopleService, ItemsService itemsService) {
+
+    public PeopleController(PersonDAO personDAO, PeopleService peopleService, ItemsService itemsService) {
+        this.personDAO = personDAO;
         this.peopleService = peopleService;
         this.itemsService = itemsService;
     }
@@ -28,11 +30,11 @@ public class PeopleController {
     @GetMapping()
     public String index(Model model){
         // получим всех людей из ДАО и передадим на отображение
-        model.addAttribute("people", peopleService.findAll());
-        itemsService.findByItemName("lamp");
-        itemsService.findByOwner(peopleService.findAll().get(0));
-
-        peopleService.test();
+       // model.addAttribute("people", peopleService.findAll());
+//        itemsService.findByItemName("lamp");
+//        itemsService.findByOwner(peopleService.findAll().get(0));
+personDAO.testNPlus1();
+        //peopleService.test();
 
         return "people/index";
     }
