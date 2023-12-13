@@ -3,6 +3,7 @@ package org.example.controllers.users;
 import org.example.dao.OrderDao;
 import org.example.dao.UserDao;
 import org.example.models.User;
+import org.example.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,16 +17,18 @@ import javax.validation.Valid;
 public class UsersController {
     private final UserDao userDao;
     private final OrderDao orderDao;
+    private final UsersService usersService;
 
     @Autowired
-    public UsersController(UserDao userDao, OrderDao orderDao) {
+    public UsersController(UserDao userDao, OrderDao orderDao, UsersService usersService) {
         this.userDao = userDao;
         this.orderDao = orderDao;
+        this.usersService = usersService;
     }
 
     @GetMapping()
     public String getAllUsers(Model model){
-        model.addAttribute("users", userDao.getAllUsers());
+        model.addAttribute("users", usersService.findAll());
         return "users/users";
     }
 
