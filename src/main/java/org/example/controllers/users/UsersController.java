@@ -29,7 +29,7 @@ public class UsersController {
     @GetMapping()
     public String getAllUsers(Model model){
         model.addAttribute("users", usersService.findAll());
-        model.addAttribute("users", userDao.getAllUsers());
+        //model.addAttribute("users", userDao.getAllUsers());
         return "users/users";
     }
 

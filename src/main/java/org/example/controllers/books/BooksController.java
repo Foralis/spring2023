@@ -5,6 +5,7 @@ import org.example.dao.OrderDao;
 import org.example.dao.UserDao;
 import org.example.models.Book;
 import org.example.models.User;
+import org.example.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,13 +21,16 @@ public class BooksController {
     private final UserDao userDao;
     private final OrderDao orderDao;
 
+    private final UsersService usersService;
+
     @Autowired
     public BooksController(BookDao bookDao,
                            UserDao userDao,
-                           OrderDao orderDao) {
+                           OrderDao orderDao, UsersService usersService) {
         this.bookDao = bookDao;
         this.userDao = userDao;
         this.orderDao = orderDao;
+        this.usersService = usersService;
     }
 
     @GetMapping()
@@ -57,7 +61,7 @@ public class BooksController {
             model.addAttribute("isOrdered", true);
             model.addAttribute("user", userDao.showUserWhoOrderedBook(id));
         } else {
-            model.addAttribute("users", userDao.getAllUsers());
+            model.addAttribute("users", usersService.findAll());
             model.addAttribute("isOrdered", false);
             model.addAttribute("user", new User());
         }
