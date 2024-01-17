@@ -1,25 +1,43 @@
 package org.example.models;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
+@Entity
+@Table(name = "Book")
 public class Book {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotEmpty(message = "name should not be empty")
     @Size(min = 3, max = 255, message = "name should be between 1 and 255")
+    @Column(name = "name")
     private String name;
 
     @NotEmpty(message = "author should not be empty")
     @Size(min = 3, max = 255, message = "author should be between 1 and 255")
+    @Column(name = "author")
     private String author;
 
     @Pattern(regexp = "\\d{4}", message = "date should be in format yyyy")
-    private String established;
+    @Column(name = "established")
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy")
+    private Date established;
 
-    public Book(int id, String name, String author, String established) {
+    @OneToOne
+    @JoinColumn(name = "id", referencedColumnName = "bookId")
+    private Order order;
+
+    public Book(int id, String name, String author, Date established) {
         this.id = id;
         this.name = name;
         this.author = author;
@@ -53,12 +71,20 @@ public class Book {
         this.author = author;
     }
 
-    public String getEstablished() {
+    public Date getEstablished() {
         return established;
     }
 
-    public void setEstablished(String established) {
+    public void setEstablished(Date established) {
         this.established = established;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     @Override

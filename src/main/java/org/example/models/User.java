@@ -1,10 +1,13 @@
 package org.example.models;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "User")
@@ -20,14 +23,19 @@ public class User {
     @Column(name = "name")
     private String name;
 
-    @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}", message = "Birthdate should be in format yyyy-mm-dd")
+    @Pattern(regexp = "\\d{2}/\\d{2}/\\d{4}", message = "Birthdate should be in format yyyy-mm-dd")
     @Column(name = "birthDate")
-    private String birthDate;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date birthDate;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
 
     public User() {
     }
 
-    public User(int id, String name, String birthDate) {
+    public User(int id, String name, Date birthDate) {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;
@@ -49,11 +57,11 @@ public class User {
         this.name = name;
     }
 
-    public String getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 }
