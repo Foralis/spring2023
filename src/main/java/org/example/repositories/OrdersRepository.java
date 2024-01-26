@@ -7,4 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OrdersRepository extends JpaRepository<Order, Integer> {
+    void deleteOrderByBookId(int id);
+    //boolean findOrderByBookId(int id);
+    boolean findOrderByBookIdExists(int id);
 }

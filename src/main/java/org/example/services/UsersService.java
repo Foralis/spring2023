@@ -2,21 +2,28 @@ package org.example.services;
 
 import org.example.models.User;
 import org.example.repositories.UsersRepository;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
 public class UsersService {
+
     private final UsersRepository usersRepository;
+    private final OrdersService ordersService;
+    private final EntityManager entityManager;
 
     @Autowired
-    public UsersService(UsersRepository usersRepository) {
+    public UsersService(UsersRepository usersRepository, OrdersService ordersService, EntityManager entityManager) {
         this.usersRepository = usersRepository;
+        this.ordersService = ordersService;
+        this.entityManager = entityManager;
     }
 
     public List<User> findAll() {
@@ -45,5 +52,10 @@ public class UsersService {
     }
 
 
-
+    public User showUserWhoOrderedBook(int bookId) {
+        Session session = entityManager.unwrap(Session.class);
+        return (User) session.createQuery("from User as u where u.id = (select ord.user.id from Order as ord where ord.book.id = :bookId)")
+                .setParameter("bookId", bookId)
+                .getSingleResult();
+    }
 }

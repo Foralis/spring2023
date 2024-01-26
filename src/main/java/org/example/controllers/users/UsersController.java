@@ -1,9 +1,7 @@
 package org.example.controllers.users;
 
-import org.example.dao.OrderDao;
-import org.example.dao.UserDao;
 import org.example.models.User;
-import org.example.services.OrdersService;
+import org.example.services.BooksService;
 import org.example.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,30 +16,30 @@ import javax.validation.Valid;
 public class UsersController {
 
     private final UsersService usersService;
-    private final OrdersService ordersService;
+    private final BooksService booksService;
 
     @Autowired
-    public UsersController(UsersService usersService, OrdersService ordersService) {
+    public UsersController(UsersService usersService, BooksService booksService) {
         this.usersService = usersService;
-        this.ordersService = ordersService;
+        this.booksService = booksService;
     }
 
     @GetMapping()
-    public String getAllUsers(Model model){
+    public String getAllUsers(Model model) {
         model.addAttribute("users", usersService.findAll());
         //model.addAttribute("users", userDao.getAllUsers());
         return "users/users";
     }
 
     @GetMapping("/new")
-    public String newUserForm(Model model){
+    public String newUserForm(Model model) {
         model.addAttribute("user", new User());
         return "users/new";
     }
 
     @PostMapping("")
-    public String createUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult){
-        if(bindingResult.hasErrors()) {
+    public String createUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return "users/new";
         }
         usersService.save(user);
@@ -49,10 +47,10 @@ public class UsersController {
     }
 
     @GetMapping("/{id}")
-    public String showUser(@PathVariable("id") int id, Model model){
+    public String showUser(@PathVariable("id") int id, Model model) {
         User user = usersService.findOne(id);
         model.addAttribute("user", user);
-        model.addAttribute("books", ordersService.getAllBooksOrderedByUser(user));
+        model.addAttribute("books", booksService.getAllBooksOrderedByUser(user));
         return "users/showUser";
     }
 
@@ -65,7 +63,7 @@ public class UsersController {
     @PatchMapping("/{id}")
     public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
                              @PathVariable("id") int id) {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return "users/editUser";
         }
 
@@ -74,8 +72,8 @@ public class UsersController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable("id") int id){
-        usersService.deleteUser(id);
+    public String deleteUser(@PathVariable("id") int id) {
+        //usersService.deleteUser(id);
         return "redirect:/users";
     }
 }

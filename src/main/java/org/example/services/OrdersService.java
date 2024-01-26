@@ -1,11 +1,8 @@
 package org.example.services;
 
-import org.example.models.Book;
 import org.example.models.Order;
 import org.example.models.User;
-import org.example.repositories.BooksRepository;
 import org.example.repositories.OrdersRepository;
-import org.example.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,20 +13,31 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class OrdersService {
     private final OrdersRepository ordersRepository;
+    private final BooksService booksService;
 
     @Autowired
-    public OrdersService(OrdersRepository ordersRepository) {
+    public OrdersService(OrdersRepository ordersRepository, BooksService booksService) {
         this.ordersRepository = ordersRepository;
+        this.booksService = booksService;
     }
 
     public List<Order> findAll() {
         return ordersRepository.findAll();
     }
 
+    public boolean isBooked(int id) {
+        return ordersRepository.findOrderByBookIdExists(id);
+    }
 
-    Перенсти в BooksRepository и сделать там hql запрос возвращающий нужные книги
-    public List<Book> getAllBooksOrderedByUser(User user) {
-        List<Book> foundBooks = ordersRepository.findByUser(user);
-        return foundBooks;
+
+    public void deleteOrderByBookId(int bookId) {
+        ordersRepository.deleteOrderByBookId(bookId);
+    }
+
+    public void order(User user, int bookId) {
+        Order order = new Order();
+        order.setUser(user);
+        order.setBook(booksService.showBook(bookId));
+        ordersRepository.save(order);
     }
 }
