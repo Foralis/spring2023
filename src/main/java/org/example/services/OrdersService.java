@@ -26,7 +26,7 @@ public class OrdersService {
     }
 
     public boolean isBooked(int id) {
-        return ordersRepository.findOrderByBookIdExists(id);
+        return ordersRepository.existsByBookId(id);
     }
 
 

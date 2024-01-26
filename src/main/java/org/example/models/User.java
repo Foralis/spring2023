@@ -23,7 +23,7 @@ public class User {
     @Column(name = "name")
     private String name;
 
-    @Pattern(regexp = "\\d{2}/\\d{2}/\\d{4}", message = "Birthdate should be in format yyyy-mm-dd")
+    //@Pattern(regexp = "\\d{2}/\\d{2}/\\d{4}", message = "Birthdate should be in format yyyy-mm-dd")
     @Column(name = "birthDate")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")

@@ -27,7 +27,8 @@ public class Book {
     @Column(name = "author")
     private String author;
 
-    @Pattern(regexp = "\\d{4}", message = "date should be in format yyyy")
+    //@Pattern(regexp = "\\d{4}", message = "date should be in format yyyy")
+    // с паттерном выше выдает ошибку, без него техническое сообщение от спринга при нарушении паттерна
     @Column(name = "established")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy")
