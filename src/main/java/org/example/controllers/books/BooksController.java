@@ -91,10 +91,13 @@ public class BooksController {
     @DeleteMapping("/order/{id}")
     public String deleteOrder(@PathVariable("id") int id){
         ordersService.deleteOrderByBookId(id);
+        System.out.println("FINISH\n");
         return "redirect:/books";
     }
 
     @PostMapping("/order/{id}") String orderBook(@PathVariable("id") int id, @ModelAttribute("user") User user){
+        System.out.println(user);
+        System.out.println(id);
         ordersService.order(user, id);
         return "redirect:/books";
     }

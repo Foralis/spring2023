@@ -45,7 +45,10 @@ Hibernate: select order0_.id as id1_1_0_, order0_.bookId as bookid2_1_0_, order0
         return booksRepository.findAll();
     }
 
+    @Transactional
     public void save(Book book) {
+        System.out.println(book);
+        //book.setEstablished();
         booksRepository.save(book);
     }
 
@@ -54,11 +57,13 @@ Hibernate: select order0_.id as id1_1_0_, order0_.bookId as bookid2_1_0_, order0
         return foundBook.orElse(null);
     }
 
+    @Transactional
     public void update(int id, Book book) {
         book.setId(id);
         booksRepository.save(book);
     }
 
+    @Transactional
     public void deleteBook(int id) {
         booksRepository.deleteById(id);
     }

@@ -73,7 +73,7 @@ public class UsersController {
 
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable("id") int id) {
-        //usersService.deleteUser(id);
+        usersService.delete(id);
         return "redirect:/users";
     }
 }

@@ -90,6 +90,12 @@ public class Book {
 
     @Override
     public String toString() {
-        return getName() + ", " + getAuthor() + ", " + getEstablished();
+        return "Book{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", author='" + author + '\'' +
+                ", established=" + established +
+                ", order=" + order +
+                '}';
     }
 }

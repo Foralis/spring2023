@@ -29,15 +29,18 @@ public class OrdersService {
         return ordersRepository.existsByBookId(id);
     }
 
-
+    @Transactional
     public void deleteOrderByBookId(int bookId) {
-        ordersRepository.deleteOrderByBookId(bookId);
+        ordersRepository.deleteOrdersByBookId(bookId);
     }
 
+    @Transactional
     public void order(User user, int bookId) {
         Order order = new Order();
         order.setUser(user);
         order.setBook(booksService.showBook(bookId));
+        System.out.println(order.getUser());
+        System.out.println(order.getBook());
         ordersRepository.save(order);
     }
 }
